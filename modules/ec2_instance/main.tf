@@ -1,5 +1,5 @@
 resource "aws_instance" "Public_Instance" {
-  ami                    = "ami-0fb83b36371e7dab5"  # Ensure this AMI is compatible with Amazon Linux 2023
+  ami                    = "ami-0ff591da048329e00"  # Ensure this AMI is compatible with Amazon Linux 2023
   instance_type          = "t3.micro"
   subnet_id              = var.public_subnet_id
   security_groups        = [var.public_security_group_id]
@@ -14,7 +14,7 @@ resource "aws_instance" "Public_Instance" {
 }
 
 resource "aws_instance" "Private_Instance" {
-  ami                    = "ami-0fb83b36371e7dab5"  # Ensure this AMI is compatible with Amazon Linux 2023
+  ami                    = "ami-0ff591da048329e00"  # Ensure this AMI is compatible with Amazon Linux 2023
   instance_type          = "t3.micro"
   subnet_id              = var.private_subnet_id
   security_groups        = [var.private_security_group_id]

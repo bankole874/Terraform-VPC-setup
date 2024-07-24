@@ -26,7 +26,7 @@ resource "aws_vpc_security_group_ingress_rule" "b" {
 
 resource "aws_vpc_security_group_ingress_rule" "c" {
   security_group_id = aws_security_group.publicSG.id
-  cidr_ipv4         = "105.112.204.227/32"
+  cidr_ipv4         = "129.205.121.42/32"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22

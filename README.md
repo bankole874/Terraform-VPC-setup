@@ -5,9 +5,6 @@ This project sets up a basic AWS infrastructure using Terraform. The setup inclu
 
 ![VPC Architecture Diagram](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/kcvpc-architectural-diagram.png)
 
-## Project Structure
-![project Structure](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/1-file_structure.png)
-
 ## Components Explanation
  
 - **VPC (Virtual Private Cloud)**: A logically isolated section of the AWS cloud where you can launch AWS resources in a virtual network.

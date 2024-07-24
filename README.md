@@ -3,7 +3,7 @@
 ## Introduction
 This project sets up a basic AWS infrastructure using Terraform. The setup includes a VPC, subnets, route tables, internet and NAT gateways, security groups, network ACLs, and EC2 instances with NGINX and PostgreSQL installed via user data scripts.
 
-![VPC Architecture Diagram](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/kcvpc-architectural-diagram.png)
+![kcvpc-architectural-diagram](https://github.com/user-attachments/assets/4c4451aa-0d27-4c67-809b-e0859172134c)
 
 ## Components Explanation
  
@@ -38,64 +38,74 @@ cd Terraform-VPC-setup
 
 #### 2. Create the project infrastructure
 To create the project files according to the desired architecture.
-- Project Structure
-![project Structure](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/1-file_structure.png)
-
+- #### Project Structure
+![1-file_structure](https://github.com/user-attachments/assets/37b82947-dcf7-40ae-a806-1c48ca2a209d)
 
 
 #### 3. Terraform init
 Run the `terraform init` command.
-- initializing
-![init](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/2-terraform_init.png)
+- #### init
+![2-terraform_init](https://github.com/user-attachments/assets/eb1f2daf-4c4c-4b16-b1a7-474c2601a1c9)
 
 #### 4. Terraform plan
 Run the `terraform plan -out=tfplan -json > tfplan.json` command.
-- plan
-![plan](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/3-terraform_plan_output.png)
+- #### plan
+![3-terraform_plan_output](https://github.com/user-attachments/assets/3fc6e848-d07d-40ad-8d3a-f73346c56b61)
 
 #### 5. Terraform apply
 Run the `terrafrm apply` command.
-- starting to deploy resources.
-![apply](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/4-terraform_apply_start.png)
-- finshed deployment
-![applyout](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/5-terraform_apply_outputs.png)
+- #### starting to deploy resources.
+![4-terraform_apply_start](https://github.com/user-attachments/assets/0c7573db-cdda-47ee-820d-c406d7464ca5)
+- #### finshed deployment
+![5-terraform_apply_outputs](https://github.com/user-attachments/assets/00dbdc0a-1108-482f-b9df-2bdcd69a9bc5)
 
 ### Deployed Resources from Cosole.
-#### 1. Creating the VPC
+#### 1. VPC
 A VPC was created using a separate module (modules/vpc) to isolate network resources.
 
-- modules/vpc/
+- #### modules/vpc/
 
-![vpc](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/A-vpc.png)
+![A-vpc](https://github.com/user-attachments/assets/806efb35-d49b-467e-84fe-048e1ce67ab8)
 
-#### 2. Creating Subnets
+#### 2. Subnets
 Public and private subnets were created in the modules/subnet module.
 
-- modules/subnet/
+- #### modules/subnet/
 
-![subnets](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/B-subnets.png)
+![B-subnets](https://github.com/user-attachments/assets/6fc2dc2e-fb6d-4664-ae87-e2c5ec4303ae)
 
-#### 3. Creating Route Tables and Gateways
+#### 3. Route Tables and Gateways
 Route tables, internet gateway, and NAT gateway were created to manage network traffic.
 
-- modules/route_table/
+- #### modules/route_table/
 
-![route_table](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/C-route-tables.png)
+![C-route-tables](https://github.com/user-attachments/assets/d8803c89-30e1-43db-b0d5-427aca4e4ba1)
 
-#### 4. Creating Security Groups
+#### 4. Security Groups
 Security groups were created to define inbound and outbound rules for EC2 instances.
 
-- modules/security_group/
+- #### modules/security_group/
 
-![security_group](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/G-security-groups.png)
+![G-security-groups](https://github.com/user-attachments/assets/d7ebdc7e-0c18-4e4c-8f93-028dec8a931c)
 
 
-#### 5. Setting Up EC2 Instances
+#### 5. EC2 Instances
 EC2 instances were created with user data scripts to install NGINX and PostgreSQL.
 
-modules/ec2_instance/
+- #### modules/ec2_instance/
 
-![ec2](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/6-ec2_instances.png)
+![6-ec2_instances](https://github.com/user-attachments/assets/df23514f-907d-471f-b044-4de55c5dd9c8)
+
+### EC2 SSH Connection
+- #### public instance connect page on AWS console
+![7A-ec2-1](https://github.com/user-attachments/assets/f4cf4613-8efe-4984-8a39-b794162ed06f)
+
+- #### nginx already installed on connecting to the public instance.
+![7A-nginxinstalled](https://github.com/user-attachments/assets/fb3fd53a-b8e5-4045-978b-03da9771f109)
+
+- #### nginx page
+![7A-nginxonweb](https://github.com/user-attachments/assets/1347f622-0066-48d7-84c9-10a0846f654e)
+
 
 ### Conclusion
 This project demonstrates how to use Terraform to set up a basic AWS infrastructure with VPC, subnets, route tables, gateways, security groups, network ACLs, and EC2 instances with specific software installed via user data scripts. By organizing the configuration into modules, the setup becomes more manageable and scalable.

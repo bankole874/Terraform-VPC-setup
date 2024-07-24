@@ -5,7 +5,10 @@ This project sets up a basic AWS infrastructure using Terraform. The setup inclu
  
 ## Architecture Diagram
 ![VPC Architecture Diagram](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/kcvpc-architectural-diagram.png)
- 
+
+## Project Structure
+![project Structure](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/1-file_structure.png)
+
 ## Components Explanation
  
 - **VPC (Virtual Private Cloud)**: A logically isolated section of the AWS cloud where you can launch AWS resources in a virtual network.
@@ -21,104 +24,68 @@ This project sets up a basic AWS infrastructure using Terraform. The setup inclu
 - **Network ACLs (NACLs)**: Provide an additional layer of security for your VPC by controlling traffic to and from one or more subnets.
  
 ## Step-by-Step Guide
- 
-### VPC Creation
- 
-1. Open the AWS Management Console and navigate to the VPC Dashboard.
-2. Click on "Create VPC".
-3. Configure the VPC with the following details:
-   - **Name**: KCVPC
-   - **IPv4 CIDR block**: 10.0.0.0/16
- 
-![Create VPC](https://github.com/bankole874/KodeCamp-04repo/blob/main/Assignment/task-05/images/2-VPCcreation.png)
- 
-### Subnets Creation
- 
-1. Create the Public and Private Subnets:
-   - **Name**: PublicSubnet
-   - **IPv4 CIDR block**: 10.0.1.0/24
-   - **Availability Zone**: Select any one (e.g., eu-west-1a)
-   - **Name**: PrivateSubnet
-   - **IPv4 CIDR block**: 10.0.2.0/24
-   - **Availability Zone**: Select the same as the Public Subnet (e.g., eu-west-1a)
 
-![Create Public Subnet](https://github.com/bankole874/KodeCamp-04repo/blob/main/Assignment/task-05/images/3-PublicAndPrivateSubnets.png)
- 
- 
-### Internet Gateway Configuration
- 
-1. Create and Attach Internet Gateway:
-   - **Name**: IGW
- 
-![Create IGW](https://github.com/bankole874/KodeCamp-04repo/blob/main/Assignment/task-05/images/4-createAndAttachIGW.png)
 
- 
-### Route Tables Configuration
- 
-1. Create the Public Route Table:
-   - **Name**: PublicRouteTable
-   - **VPC**: KCVPC
-2. Add a route to the IGW (0.0.0.0/0 -> IGW).
-3. Associate the PublicSubnet with the PublicRouteTable.
-4. Create the Private Route Table:
-   - **Name**: PrivateRouteTable
-   - **VPC**: KCVPC
-5. Ensure no direct route to the internet in the PrivateRouteTable.
- 
-![Create Route Tables](https://github.com/bankole874/KodeCamp-04repo/blob/main/Assignment/task-05/images/5-RouteTables.png)
- 
-### NAT Gateway Configuration
- 
-1. Create a NAT Gateway in the PublicSubnet.
+## Prerequisites
 
-![NAT Gateway](https://github.com/bankole874/KodeCamp-04repo/blob/main/Assignment/task-05/images/6-NATGateway.png)
+- [Terraform](https://www.terraform.io/downloads.html) installed
+- AWS CLI installed and configured with appropriate credentials
+- An SSH key pair available locally (e.g., `id_rsa` and `id_rsa.pub` in `~/.ssh/`)
 
-2. Allocate an Elastic IP for the NAT Gateway.
-3. Update the PrivateRouteTable to route internet traffic (0.0.0.0/0) to the NAT Gateway.
- 
-![update private route table](https://github.com/bankole874/KodeCamp-04repo/blob/main/Assignment/task-05/images/7-updatedPrivateRouteTables.png)
- 
-### Security Groups Setup
- 
-1. Create a Security Group for public instances (e.g., web servers):
-   - **Name**: PublicSG
-   - **Inbound Rules**:
-     - HTTP (port 80) from 0.0.0.0/0
-     - HTTPS (port 443) from 0.0.0.0/0
-     - SSH (port 22) from your specific IP
-   - **Outbound Rules**: Allow all outbound traffic
- 
-2. Create a Security Group for private instances (e.g., database servers):
-   - **Name**: PrivateSG
-   - **Inbound Rules**: Allow traffic from the PublicSubnet on required ports (e.g., MySQL port 3306)
-   - **Outbound Rules**: Allow all outbound traffic
- 
-![Security Groups](https://github.com/bankole874/KodeCamp-04repo/blob/main/Assignment/task-05/images/8-securityGroups.png)
- 
-### Network ACLs Configuration
- 
-1. Configure NACL for the Public Subnet:
-   - Allow inbound HTTP, HTTPS, and SSH traffic.
-   - Allow all outbound traffic.
- 
-2. Configure NACL for the Private Subnet:
-   - Allow inbound traffic from the Public Subnet.
-   - Allow outbound traffic to the Public Subnet and the internet.
- 
-![NACLs](https://github.com/bankole874/KodeCamp-04repo/blob/main/Assignment/task-05/images/9-networkACLs.png)
- 
-### Instances Deployment
- 
-1. Launch an EC2 instance in the PublicSubnet:
-   - **Security Group**: PublicSG
-   - Verify internet access.
- 
-2. Launch an EC2 instance in the PrivateSubnet:
-   - **Security Group**: PrivateSG
-   - Verify internet access through the NAT Gateway.
-   - Ensure communication with the public instance.
- 
-![EC2 Instances](https://github.com/bankole874/KodeCamp-04repo/blob/main/Assignment/task-05/images/accessing-the-internet.png)
+## Usage
+
+### 1. Clone the Repository
+
+```sh
+git clone https://github.com/bankole874/Terraform-VPC-setup.git
+cd Terraform-VPC-setup
+```
+
+### 2. Initialize Terraform
+
+```
+terraform init
+```
+
+### 3. Apply the Terraform Configuration
+
+```
+terraform apply
+```
+
+### 4. Access the Instances
+SSH into the instances using the public IP address of the EC2 instances.
+
+For the public instance:
+
+```
+ssh -i ~/.ssh/id_rsa ec2-user@<public_instance_ip>
+```
+For the private instance, you can SSH into the public instance first, and then SSH into the private instance from there.
+
+5. Clean Up
+To destroy the infrastructure created by Terraform:
+
+sh
+Copy code
+terraform destroy -var="ssh_key_name=id_rsa" -var="ssh_key_path=~/.ssh/id_rsa.pub"
+Variables
+The following variables can be configured in variables.tf:
+
+ssh_key_name: The name of the SSH key pair (default: id_rsa)
+ssh_key_path: Path to the SSH public key file (default: ~/.ssh/id_rsa.pub)
+public_subnet_id: The ID of the public subnet
+private_subnet_id: The ID of the private subnet
+public_security_group_id: The ID of the public security group
+private_security_group_id: The ID of the private security group
+Outputs
+The following outputs are provided:
+
+public_instance_id: The ID of the public EC2 instance
+private_instance_id: The ID of the private EC2 instance
+vpc_id: The ID of the VPC
+public_subnet_id: The ID of the public subnet
+private_subnet_id: The ID of the private subnet
  
 ## Conclusion
 This guide has provided a comprehensive walkthrough to set up a secure and functional VPC in AWS with both public and private subnets, proper routing, and security configurations. By following these steps, you have created a robust network architecture suitable for various applications.

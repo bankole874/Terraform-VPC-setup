@@ -58,7 +58,7 @@ Run the `terrafrm apply` command.
 - starting to deploy resources.
 ![apply](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/4-terraform_apply_start.png)
 - finshed deployment
-![applyout](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/4-terraform_apply_start.png)
+![applyout](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/5-terraform_apply_outputs.png)
 
 ### Deployed Resources from Cosole.
 #### 1. Creating the VPC

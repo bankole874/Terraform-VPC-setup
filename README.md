@@ -2,8 +2,7 @@
 
 ## Introduction
 This project sets up a basic AWS infrastructure using Terraform. The setup includes a VPC, subnets, route tables, internet and NAT gateways, security groups, network ACLs, and EC2 instances with NGINX and PostgreSQL installed via user data scripts.
- 
-## Architecture Diagram
+
 ![VPC Architecture Diagram](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/kcvpc-architectural-diagram.png)
 
 ## Project Structure
@@ -32,28 +31,33 @@ This project sets up a basic AWS infrastructure using Terraform. The setup inclu
 - AWS CLI installed and configured with appropriate credentials
 - An SSH key pair available locally ( `id_rsa` and `id_rsa.pub` in `~/.ssh/`) using the `ssh-keygen` command.
 
-3. Creating the VPC
-A VPC was created using a separate module (modules/vpc) to isolate network resources:
+#### 1. Creating the VPC
+A VPC was created using a separate module (modules/vpc) to isolate network resources.
 
-modules/vpc/main.tf:
+- modules/vpc/
 
+![vpc](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/A-vpc.png)
 
-4. Creating Subnets
-Public and private subnets were created in the modules/subnet module:
+#### 2. Creating Subnets
+Public and private subnets were created in the modules/subnet module.
 
-modules/subnet/main.tf:
+- modules/subnet/
 
+![subnets](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/B-subnets.png)
 
-5. Creating Route Tables and Gateways
+#### 3. Creating Route Tables and Gateways
 Route tables, internet gateway, and NAT gateway were created to manage network traffic:
 
-modules/route_table/main.tf:
+- modules/route_table/
 
+![route_table](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/C-route-tables.png)
 
-6. Creating Security Groups
+#### 4. Creating Security Groups
 Security groups were created to define inbound and outbound rules for EC2 instances:
 
-modules/security_group/main.tf:
+- modules/security_group/
+
+![security_group](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/G-security-groups.png)
 
 
 7. Setting Up EC2 Instances

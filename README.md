@@ -30,9 +30,7 @@ This project sets up a basic AWS infrastructure using Terraform. The setup inclu
 
 - [Terraform](https://www.terraform.io/downloads.html) installed
 - AWS CLI installed and configured with appropriate credentials
-- An SSH key pair available locally (e.g., `id_rsa` and `id_rsa.pub` in `~/.ssh/`)
-
-## Usage
+- An SSH key pair available locally ( `id_rsa` and `id_rsa.pub` in `~/.ssh/`) using the `ssh-keygen` command.
 
 ### 1. Clone the Repository
 

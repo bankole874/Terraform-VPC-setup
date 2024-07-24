@@ -32,58 +32,58 @@ This project sets up a basic AWS infrastructure using Terraform. The setup inclu
 - AWS CLI installed and configured with appropriate credentials
 - An SSH key pair available locally ( `id_rsa` and `id_rsa.pub` in `~/.ssh/`) using the `ssh-keygen` command.
 
-### 1. Clone the Repository
+3. Creating the VPC
+A VPC was created using a separate module (modules/vpc) to isolate network resources:
 
-```sh
-git clone https://github.com/bankole874/Terraform-VPC-setup.git
-cd Terraform-VPC-setup
-```
+modules/vpc/main.tf:
 
-### 2. Initialize Terraform
 
-```
-terraform init
-```
+4. Creating Subnets
+Public and private subnets were created in the modules/subnet module:
 
-### 3. Apply the Terraform Configuration
+modules/subnet/main.tf:
 
-```
-terraform apply
-```
 
-### 4. Access the Instances
-SSH into the instances using the public IP address of the EC2 instances.
+5. Creating Route Tables and Gateways
+Route tables, internet gateway, and NAT gateway were created to manage network traffic:
+
+modules/route_table/main.tf:
+
+
+6. Creating Security Groups
+Security groups were created to define inbound and outbound rules for EC2 instances:
+
+modules/security_group/main.tf:
+
+
+7. Setting Up EC2 Instances
+EC2 instances were created with user data scripts to install NGINX and PostgreSQL:
+
+modules/ec2_instance/main.tf:
+
+
+8. Adding SSH Key Configuration
+The SSH key pair was configured to allow SSH access to EC2 instances:
+
+provider.tf:
+
+
+9. Writing User Data Scripts
+User data scripts for installing NGINX and PostgreSQL were placed in the scripts directory:
+
+scripts/install_nginx.sh:
+
+
+Initialize Terraform:
+
 
 For the public instance:
 
-```
-ssh -i ~/.ssh/id_rsa ec2-user@<public_instance_ip>
-```
-For the private instance, you can SSH into the public instance first, and then SSH into the private instance from there.
 
-5. Clean Up
-To destroy the infrastructure created by Terraform:
+Destroy the infrastructure:
 
-sh
-Copy code
-terraform destroy -var="ssh_key_name=id_rsa" -var="ssh_key_path=~/.ssh/id_rsa.pub"
-Variables
-The following variables can be configured in variables.tf:
 
-ssh_key_name: The name of the SSH key pair (default: id_rsa)
-ssh_key_path: Path to the SSH public key file (default: ~/.ssh/id_rsa.pub)
-public_subnet_id: The ID of the public subnet
-private_subnet_id: The ID of the private subnet
-public_security_group_id: The ID of the public security group
-private_security_group_id: The ID of the private security group
-Outputs
-The following outputs are provided:
+Conclusion
+This project demonstrates how to use Terraform to set up a basic AWS infrastructure with VPC, subnets, route tables, gateways, security groups, network ACLs, and EC2 instances with specific software installed via user data scripts. By organizing the configuration into modules, the setup becomes more manageable and scalable.
 
-public_instance_id: The ID of the public EC2 instance
-private_instance_id: The ID of the private EC2 instance
-vpc_id: The ID of the VPC
-public_subnet_id: The ID of the public subnet
-private_subnet_id: The ID of the private subnet
- 
-## Conclusion
-This guide has provided a comprehensive walkthrough to set up a secure and functional VPC in AWS with both public and private subnets, proper routing, and security configurations. By following these steps, you have created a robust network architecture suitable for various applications.
+This `README.md` explains how the project was structured, the decisions made during the setup, and the steps to deploy and manage the infrastructure.

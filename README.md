@@ -43,17 +43,17 @@ To create the project files according to the desired architecture.
 
 
 
-#### 4. Terraform init
+#### 3. Terraform init
 Run the `terraform init` command.
 - initializing
 ![init](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/2-terraform_init.png)
 
-#### 5. Terraform plan
+#### 4. Terraform plan
 Run the `terraform plan -out=tfplan -json > tfplan.json` command.
 - plan
 ![plan](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/3-terraform_plan_output.png)
 
-#### 6. Terraform apply
+#### 5. Terraform apply
 Run the `terrafrm apply` command.
 - starting to deploy resources.
 ![apply](https://github.com/bankole874/Terraform-VPC-setup/blob/main/images/4-terraform_apply_start.png)

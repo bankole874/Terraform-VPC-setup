@@ -59,7 +59,7 @@ Run the `terrafrm apply` command.
 - #### finshed deployment
 ![5-terraform_apply_outputs](https://github.com/user-attachments/assets/00dbdc0a-1108-482f-b9df-2bdcd69a9bc5)
 
-### Deployed Resources from Cosole.
+## Deployed Resources on AWS Console.
 #### 1. VPC
 A VPC was created using a separate module (modules/vpc) to isolate network resources.
 
@@ -96,6 +96,8 @@ EC2 instances were created with user data scripts to install NGINX and PostgreSQ
 
 ![6-ec2_instances](https://github.com/user-attachments/assets/df23514f-907d-471f-b044-4de55c5dd9c8)
 
+## Server Connections
+
 ### EC2 SSH Connection
 - #### public instance connect page on AWS console
 ![7A-ec2-1](https://github.com/user-attachments/assets/f4cf4613-8efe-4984-8a39-b794162ed06f)
@@ -106,6 +108,10 @@ EC2 instances were created with user data scripts to install NGINX and PostgreSQ
 - #### nginx page
 ![7A-nginxonweb](https://github.com/user-attachments/assets/1347f622-0066-48d7-84c9-10a0846f654e)
 
+### EC2 PostgreSQL DB Connection
+- #### PostgreSQL DB Connection
+` psql -h 10.0.2.137 -p 5432 -U admin -d kcdb `
+![connecting_to_postgresqldb](https://github.com/user-attachments/assets/a7106252-23fe-45b7-a9a3-a79daf2123e5)
 
 ### Conclusion
 This project demonstrates how to use Terraform to set up a basic AWS infrastructure with VPC, subnets, route tables, gateways, security groups, network ACLs, and EC2 instances with specific software installed via user data scripts. By organizing the configuration into modules, the setup becomes more manageable and scalable.
